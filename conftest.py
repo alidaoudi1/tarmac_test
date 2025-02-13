@@ -11,4 +11,5 @@ sys.path.append(str(BASE_DIR))
 os.environ["DJANGO_SETTINGS_MODULE"] = "agoa.settings"
 
 import django
-django.setup() 
+
+django.setup()

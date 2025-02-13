@@ -41,9 +41,11 @@ jobs:
 
       - name: Code Quality
         run: poetry run black . --check
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV  # Set the PYTHONPATH to the current directory
 
       - name: Test with pytest
         env:
-          DJANGO_SETTINGS_MODULE: project.settings
+          DJANGO_SETTINGS_MODULE: agoa.settings
           SECRETS_FILE: .confidential/ci.json
         run: poetry run pytest --cov . -n 2
