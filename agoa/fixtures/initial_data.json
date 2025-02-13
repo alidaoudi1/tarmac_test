@@ -1,0 +1,65 @@
+[
+    {
+        "model": "agoa.airline",
+        "pk": 1,
+        "fields": {
+            "name": "Air France",
+            "iata_code": "AF"
+        }
+    },
+    {
+        "model": "agoa.airport",
+        "pk": 1,
+        "fields": {
+            "name": "Paris Charles de Gaulle",
+            "iata_code": "CDG",
+            "city": "Paris",
+            "country": "France"
+        }
+    },
+    {
+        "model": "agoa.airport",
+        "pk": 2,
+        "fields": {
+            "name": "Nice Côte d'Azur",
+            "iata_code": "NCE",
+            "city": "Nice",
+            "country": "France"
+        }
+    },
+    {
+        "model": "agoa.flight",
+        "pk": 1,
+        "fields": {
+            "flight_number": "1234",
+            "airline": 1,
+            "departure_airport": 1,
+            "arrival_airport": 2,
+            "scheduled_departure": "2024-03-20T10:00:00Z",
+            "scheduled_arrival": "2024-03-20T11:30:00Z"
+        }
+    },
+    {
+        "model": "agoa.flight",
+        "pk": 2,
+        "fields": {
+            "flight_number": "1235",
+            "airline": 1,
+            "departure_airport": 2,
+            "arrival_airport": 1,
+            "scheduled_departure": "2024-03-20T12:30:00Z",
+            "scheduled_arrival": "2024-03-20T14:00:00Z"
+        }
+    },
+    {
+        "model": "agoa.turnaround",
+        "pk": 1,
+        "fields": {
+            "arrival_flight": 1,
+            "departure_flight": 2,
+            "airport": 2,
+            "scheduled_start": "2024-03-20T11:30:00Z",
+            "scheduled_end": "2024-03-20T12:30:00Z"
+        }
+    }
+] 

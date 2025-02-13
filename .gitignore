@@ -1,0 +1,17 @@
+# Python virtual environments
+.venv/
+venv/
+ENV/
+
+# Poetry
+poetry.lock
+dist/
+*.egg-info/
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+static/
