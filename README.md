@@ -83,3 +83,28 @@ The API uses JWT authentication. To access protected endpoints:
 - `authentication/`: User authentication and authorization
 - `agoa/`: Main application logic for flights and turnarounds
 - `tests/`: Test suite
+
+
+## 🔄 Continuous Integration
+
+This project uses GitHub Actions for automated testing and code quality checks:
+
+### 🛠️ Automated Checks
+
+- Unit tests execution
+- Code formatting with Black
+- Python linting
+
+### ⚙️ Workflow Status
+
+[![Tests](https://github.com/yourusername/agoa/actions/workflows/tests.yml/badge.svg)](https://github.com/yourusername/agoa/actions/workflows/tests.yml)
+
+To run checks locally:
+
+```bash
+# Format code with Black
+poetry run black .
+
+# Run tests
+poetry run pytest
+```
