@@ -97,7 +97,7 @@ This project uses GitHub Actions for automated testing and code quality checks:
 
 ### ⚙️ Workflow Status
 
-[![Tests](https://github.com/yourusername/agoa/actions/workflows/tests.yml/badge.svg)](https://github.com/yourusername/agoa/actions/workflows/tests.yml)
+[![Tests](https://github.com/alidaoudi1/tarmac_test/actions/workflows/ci.yml/badge.svg)](https://github.com/alidaoudi1/tarmac_test/actions/workflows/ci.yml)
 
 To run checks locally:
 
