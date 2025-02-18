@@ -55,7 +55,10 @@ To use the database:
     poetry run python manage.py makemigrations
     poetry run python manage.py createsuperuser
     ```
-
+3. Load initial data:
+    ```bash
+    poetry run python manage.py loaddata initial_data.json
+    ```
 ## 💻 Running the Development Server
 
 1. Start the server:
