@@ -8,6 +8,22 @@
         }
     },
     {
+        "model": "agoa.airline",
+        "pk": 2,
+        "fields": {
+            "name": "Lufthansa",
+            "iata_code": "LH"
+        }
+    },
+    {
+        "model": "agoa.airline",
+        "pk": 3,
+        "fields": {
+            "name": "British Airways",
+            "iata_code": "BA"
+        }
+    },
+    {
         "model": "agoa.airport",
         "pk": 1,
         "fields": {
@@ -25,6 +41,26 @@
             "iata_code": "NCE",
             "city": "Nice",
             "country": "France"
+        }
+    },
+    {
+        "model": "agoa.airport",
+        "pk": 3,
+        "fields": {
+            "name": "London Heathrow",
+            "iata_code": "LHR",
+            "city": "London",
+            "country": "United Kingdom"
+        }
+    },
+    {
+        "model": "agoa.airport",
+        "pk": 4,
+        "fields": {
+            "name": "Frankfurt Airport",
+            "iata_code": "FRA",
+            "city": "Frankfurt",
+            "country": "Germany"
         }
     },
     {
@@ -52,6 +88,54 @@
         }
     },
     {
+        "model": "agoa.flight",
+        "pk": 3,
+        "fields": {
+            "flight_number": "4567",
+            "airline": 2,
+            "departure_airport": 4,
+            "arrival_airport": 1,
+            "scheduled_departure": "2024-03-20T09:00:00Z",
+            "scheduled_arrival": "2024-03-20T10:30:00Z"
+        }
+    },
+    {
+        "model": "agoa.flight",
+        "pk": 4,
+        "fields": {
+            "flight_number": "4568",
+            "airline": 2,
+            "departure_airport": 1,
+            "arrival_airport": 4,
+            "scheduled_departure": "2024-03-20T11:30:00Z",
+            "scheduled_arrival": "2024-03-20T13:00:00Z"
+        }
+    },
+    {
+        "model": "agoa.flight",
+        "pk": 5,
+        "fields": {
+            "flight_number": "8901",
+            "airline": 3,
+            "departure_airport": 3,
+            "arrival_airport": 1,
+            "scheduled_departure": "2024-03-20T08:00:00Z",
+            "scheduled_arrival": "2024-03-20T09:30:00Z"
+        }
+    },
+    {
+        "model": "agoa.flight",
+        "pk": 6,
+        "fields": {
+            "flight_number": "8902",
+            "airline": 3,
+            "departure_airport": 1,
+            "arrival_airport": 3,
+            "scheduled_departure": "2024-03-20T10:30:00Z",
+            "scheduled_arrival": "2024-03-20T12:00:00Z"
+        }
+    },
+    {
         "model": "agoa.turnaround",
         "pk": 1,
         "fields": {
@@ -61,5 +145,27 @@
             "scheduled_start": "2024-03-20T11:30:00Z",
             "scheduled_end": "2024-03-20T12:30:00Z"
         }
+    },
+    {
+        "model": "agoa.turnaround",
+        "pk": 2,
+        "fields": {
+            "arrival_flight": 3,
+            "departure_flight": 4,
+            "airport": 1,
+            "scheduled_start": "2024-03-20T10:30:00Z",
+            "scheduled_end": "2024-03-20T11:30:00Z"
+        }
+    },
+    {
+        "model": "agoa.turnaround",
+        "pk": 3,
+        "fields": {
+            "arrival_flight": 5,
+            "departure_flight": 6,
+            "airport": 1,
+            "scheduled_start": "2024-03-20T09:30:00Z",
+            "scheduled_end": "2024-03-20T10:30:00Z"
+        }
     }
-] 
+]
