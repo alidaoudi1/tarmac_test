@@ -49,3 +49,6 @@ jobs:
           DJANGO_SETTINGS_MODULE: agoa.settings
           SECRETS_FILE: .confidential/ci.json
         run: poetry run pytest --cov . -n 2
+
+      - name: Type checking
+        run: poetry run mypy agoa authentication
