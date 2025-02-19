@@ -9,7 +9,9 @@ class Airline(models.Model):
     """Airline Company"""
 
     name: str = models.CharField(max_length=100)
-    iata_code: str = models.CharField(max_length=2, unique=True)  # Ex: AF for Air France
+    iata_code: str = models.CharField(
+        max_length=2, unique=True
+    )  # Ex: AF for Air France
 
     def __str__(self) -> str:
         return f"{self.name} ({self.iata_code})"
