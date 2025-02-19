@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
+from typing import Any, Dict
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -12,7 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ("username", "password")
 
-    def create(self, validated_data):
+    def create(self, validated_data: Dict[str, Any]) -> User:
         user = User.objects.create_user(
             username=validated_data["username"], password=validated_data["password"]
         )
@@ -44,7 +45,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         model = User
         fields = ("username", "email", "password")
 
-    def create(self, validated_data):
+    def create(self, validated_data: Dict[str, Any]) -> User:
         user = User.objects.create_user(
             username=validated_data["username"],
             email=validated_data["email"],

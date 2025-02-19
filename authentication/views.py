@@ -16,10 +16,15 @@ from .serializers import (
 from rest_framework import status
 from django.core.exceptions import ValidationError
 from django.contrib.auth.password_validation import validate_password
+from typing import Any
+from rest_framework.request import Request
 
 
 class LoginView(TokenObtainPairView):
     permission_classes = (AllowAny,)
+
+    def get_tokens_for_user(self, user: User) -> tuple[()]:
+        return (self.get_token(user),)
 
 
 class RegisterView(generics.CreateAPIView):
@@ -32,7 +37,7 @@ class SecureLoginView(generics.GenericAPIView):
     permission_classes = [AllowAny]
     serializer_class = LoginSerializer
 
-    def post(self, request):
+    def post(self, request: Request, *args: Any, **kwargs: Any) -> Response:
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
@@ -61,7 +66,7 @@ class SecureRegisterView(generics.GenericAPIView):
     permission_classes = [AllowAny]
     serializer_class = RegisterSerializer
 
-    def post(self, request):
+    def post(self, request: Request, *args: Any, **kwargs: Any) -> Response:
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
