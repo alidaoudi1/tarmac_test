@@ -3,6 +3,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from .views import AirlineViewSet, AirportViewSet, FlightViewSet, TurnaroundViewSet
+from django.views.generic import TemplateView
 
 # DRF Router configuration
 router = DefaultRouter()
@@ -23,4 +24,8 @@ urlpatterns = [
         SpectacularSwaggerView.as_view(url_name="schema"),
         name="swagger-ui",
     ),
+    # Add this at the end to handle React routes
+    path("", TemplateView.as_view(template_name="index.html")),
+    path("login/", TemplateView.as_view(template_name="index.html")),
+    path("register/", TemplateView.as_view(template_name="index.html")),
 ]

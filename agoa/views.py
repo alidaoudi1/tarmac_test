@@ -3,7 +3,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from drf_spectacular.utils import extend_schema, extend_schema_view
-from django.db.models import Avg
+from django.db.models import Avg, Q, ExpressionWrapper, F, DurationField
 from datetime import datetime, timedelta
 from django.utils import timezone
 from .models import Airline, Airport, Flight, Turnaround
@@ -45,6 +45,39 @@ class AirlineViewSet(viewsets.ModelViewSet):
     serializer_class = AirlineSerializer
     permission_classes = [IsAuthenticated]
 
+    @action(detail=False, methods=["get"])
+    def turnaround_stats(self, request):
+        """Get average turnaround duration by airline"""
+        airlines = Airline.objects.all()
+        stats = []
+
+        for airline in airlines:
+            # Calculate average duration for turnarounds involving this airline
+            turnarounds = Turnaround.objects.filter(
+                Q(arrival_flight__airline=airline)
+                | Q(departure_flight__airline=airline)
+            )
+            if turnarounds.exists():
+                avg_duration = turnarounds.aggregate(
+                    avg_duration=Avg(
+                        ExpressionWrapper(
+                            F("scheduled_end") - F("scheduled_start"),
+                            output_field=DurationField(),
+                        )
+                    )
+                )["avg_duration"]
+
+                if avg_duration:
+                    stats.append(
+                        {
+                            "airline": airline.name,
+                            "average_duration": avg_duration.total_seconds()
+                            / 3600,  # Convert to hours
+                        }
+                    )
+
+        return Response(stats)
+
 
 @extend_schema_view(
     list=extend_schema(description="List all airports"),
@@ -74,6 +107,33 @@ class AirportViewSet(viewsets.ModelViewSet):
     queryset = Airport.objects.all()
     serializer_class = AirportSerializer
     permission_classes = [IsAuthenticated]
+
+    @action(detail=False, methods=["get"])
+    def available_airports(self, request):
+        """Get airports that have turnarounds for a specific date"""
+        date = request.query_params.get("date")
+
+        if not date:
+            return Response(
+                {"error": "Date parameter is required"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        try:
+            date_obj = datetime.strptime(date, "%Y-%m-%d").date()
+
+            # Get airports with turnarounds on this date
+            airports = Airport.objects.filter(
+                turnaround__scheduled_start__date=date_obj
+            ).distinct()
+
+            serializer = AirportSerializer(airports, many=True)
+            return Response(serializer.data)
+        except ValueError:
+            return Response(
+                {"error": "Invalid date format. Use YYYY-MM-DD"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
 
 @extend_schema_view(
@@ -154,38 +214,31 @@ class TurnaroundViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get"])
     def by_date_and_airport(self, request):
-        """
-        Get turnarounds for a specific date and airport.
-
-        Query parameters:
-        - date: Date in YYYY-MM-DD format
-        - airport: IATA code of the airport
-
-        Returns:
-        - List of turnarounds matching the criteria
-        """
+        """Get turnarounds for a specific date and airport"""
         date = request.query_params.get("date")
-        airport_code = request.query_params.get("airport")
+        airport_code = request.query_params.get("airport_code")
 
         if not date or not airport_code:
             return Response(
-                {"error": "Date and airport parameters are required"},
+                {"error": "Both date and airport_code are required"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
         try:
-            date = datetime.strptime(date, "%Y-%m-%d").date()
-        except ValueError:
-            return Response(
-                {"error": "Invalid date format. Use YYYY-MM-DD"},
-                status=status.HTTP_400_BAD_REQUEST,
+            date_obj = datetime.strptime(date, "%Y-%m-%d").date()
+            airport = Airport.objects.get(iata_code=airport_code)
+
+            turnarounds = Turnaround.objects.filter(
+                scheduled_start__date=date_obj, airport=airport
             )
 
-        turnarounds = Turnaround.objects.filter(
-            scheduled_start__date=date, airport__iata_code=airport_code
-        ).select_related("arrival_flight", "departure_flight")
-
-        return Response(self.serializer_class(turnarounds, many=True).data)
+            serializer = self.get_serializer(turnarounds, many=True)
+            return Response(serializer.data)
+        except (ValueError, Airport.DoesNotExist):
+            return Response(
+                {"error": "Invalid date format or airport code"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
     @action(detail=False, methods=["get"])
     def average_duration(self, request):
@@ -233,3 +286,42 @@ class TurnaroundViewSet(viewsets.ModelViewSet):
                 "average_duration_minutes": avg_duration.total_seconds() / 60,
             }
         )
+
+    @action(detail=False, methods=["get"])
+    def turnaround_stats(self, request):
+        """Get average turnaround duration by airline"""
+        airlines = Airline.objects.all()
+        stats = []
+
+        for airline in airlines:
+            # Calculate average duration for turnarounds involving this airline
+            turnarounds = Turnaround.objects.filter(
+                Q(arrival_flight__airline=airline)
+                | Q(departure_flight__airline=airline)
+            )
+            if turnarounds.exists():
+                avg_duration = turnarounds.aggregate(
+                    avg_duration=Avg(
+                        ExpressionWrapper(
+                            F("scheduled_end") - F("scheduled_start"),
+                            output_field=DurationField(),
+                        )
+                    )
+                )["avg_duration"]
+
+                if avg_duration:
+                    stats.append(
+                        {
+                            "airline": airline.name,
+                            "average_duration": avg_duration.total_seconds()
+                            / 3600,  # Convert to hours
+                        }
+                    )
+
+        return Response(stats)
+
+    @action(detail=False, methods=["get"])
+    def available_dates(self, request):
+        """Get dates that have turnarounds scheduled"""
+        dates = Turnaround.objects.dates("scheduled_start", "day")
+        return Response([date.strftime("%Y-%m-%d") for date in dates])

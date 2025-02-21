@@ -8,13 +8,13 @@ This project includes a Jupyter notebook (`agoa.ipynb`) that contains all SQL co
 - Data insertion
 - Sample queries
 
-To use the database:
-1. Open the `agoa.ipynb` file in Jupyter Notebook
-2. Execute the cells to create and populate the database
+### To use the database:
+1. Open the `agoa.ipynb` file in Jupyter Notebook.
+2. Execute the cells to create and populate the database.
 
-# ✈️ AGOA Project
+## ✈️ AGOA Project
 
-> A Django-based flight management system that handles airlines, airports, flights, and turnarounds.
+A Django-based flight management system that handles airlines, airports, flights, and turnarounds.
 
 ## 📋 Prerequisites
 
@@ -23,7 +23,7 @@ To use the database:
 
 ## 🚀 Installation
 
-1. Create a virtual environment:
+1. **Create a virtual environment:**
     ```bash
     python -m venv venv
     # On Unix/macOS
@@ -32,50 +32,88 @@ To use the database:
     venv\Scripts\activate
     ```
 
-2. Install Poetry:
+2. **Install Poetry:**
     ```bash
     curl -sSL https://install.python-poetry.org | python3 -
     ```
 
-3. Install dependencies:
+3. **Install dependencies:**
     ```bash
     poetry install
     ```
 
 ## 🗄️ Database Setup
 
-1. Activate the Poetry shell:
+1. **Activate the Poetry shell:**
     ```bash
     poetry shell
     ```
 
-2. Run the following commands to migrate and create a superuser:
+2. **Run the following commands to migrate and create a superuser:**
     ```bash
     poetry run python manage.py migrate
     poetry run python manage.py makemigrations
     poetry run python manage.py createsuperuser
     ```
-3. Load initial data:
+
+3. **Load initial data:**
     ```bash
     poetry run python manage.py loaddata initial_data.json
     ```
+
 ## 💻 Running the Development Server
 
-1. Start the server:
+1. **Start the server:**
     ```bash
     poetry run python manage.py runserver
     ```
 
-2. Access the application:
+2. **Access the application:**
     - 🔧 Admin interface: [http://localhost:8000/admin](http://localhost:8000/admin)
     - 📚 API documentation: [http://localhost:8000/api/docs](http://localhost:8000/api/docs)
     - 🔌 API endpoints: [http://localhost:8000/api/](http://localhost:8000/api/)
+
+## Frontend Setup
+
+1. **Install Node.js (v18 or later) and npm.**
+
+2. **Navigate to the frontend directory:**
+    ```bash
+    cd frontend
+    ```
+
+3. **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+4. **Install required packages for the map feature:**
+    ```bash
+    npm install leaflet@1.9.4 react-leaflet@4.2.1 @types/leaflet@1.9.8
+    ```
+
+5. **Start the development server:**
+    ```bash
+    npm start
+    ```
+
+The application will be available at:
+- Frontend: [http://localhost:3000](http://localhost:3000)
+- Backend API: [http://localhost:8000](http://localhost:8000)
+
+## Features
+
+- Interactive flight map showing real-time flight routes
+- Date-based filtering of flights
+- Airport information and flight details
+- Turnaround management
+- User authentication
 
 ## 🔐 API Authentication
 
 The API uses JWT authentication. To access protected endpoints:
 
-1. Get a token from `/api/login/`
+1. Get a token from `/api/login/`.
 2. Include the token in requests using the Authorization header:
     ```http
     Authorization: Bearer <your_token>
@@ -87,10 +125,9 @@ The API uses JWT authentication. To access protected endpoints:
 - `agoa/`: Main application logic for flights and turnarounds
 - `tests/`: Test suite
 
-
 ## 🔄 Continuous Integration
 
-This project uses GitHub Actions for automated testing and code quality checks:
+This project uses GitHub Actions for automated testing and code quality checks.
 
 ### 🛠️ Automated Checks
 
@@ -102,7 +139,7 @@ This project uses GitHub Actions for automated testing and code quality checks:
 
 [![Tests](https://github.com/alidaoudi1/tarmac_test/actions/workflows/ci.yml/badge.svg)](https://github.com/alidaoudi1/tarmac_test/actions/workflows/ci.yml)
 
-To run checks locally:
+### To run checks locally:
 
 ```bash
 # Format code with Black
@@ -111,3 +148,5 @@ poetry run black .
 # Run tests
 poetry run pytest
 ```
+
+

@@ -21,3 +21,15 @@ static/
 
 # Ignore Python cache files
 __pycache__/
+*.py[cod]
+
+# Ignore frontend build artifacts
+node_modules/
+dist/
+build/
+*.env
+.DS_Store
+npm-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock

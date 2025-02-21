@@ -1,0 +1,138 @@
+#map {
+  height: 100%;
+  width: 100%;
+}
+
+.map-container {
+  flex: 1;
+  position: relative;
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}
+
+.map-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.map-header {
+  background: #2c3e50;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.map-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.map-header button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.map-header button:hover {
+  background-color: #2980b9;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.2rem;
+  color: #2c3e50;
+}
+
+.error {
+  background-color: #fff5f5;
+  color: #c0392b;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin: 2rem auto;
+  max-width: 600px;
+  text-align: center;
+}
+
+.flight-time-label {
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+
+.flight-time-label .leaflet-popup-content-wrapper {
+  background: rgba(52, 152, 219, 0.9);
+  color: white;
+  border-radius: 4px;
+  padding: 2px 8px;
+}
+
+.flight-time-label .leaflet-popup-tip-container {
+  display: none;
+}
+
+.flight-time {
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.flight-path {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.flight-path:hover {
+  stroke-width: 8;
+  stroke-opacity: 0.8;
+}
+
+/* Make popup appear above the lines */
+.leaflet-popup {
+  z-index: 1000;
+}
+
+.map-controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.map-controls input[type="date"] {
+  padding: 0.6rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  background: white;
+}
+
+.date-available {
+  border: 2px solid #27ae60 !important;
+}
+
+.date-unavailable {
+  border: 2px solid #e74c3c !important;
+}
+
+/* Style the calendar dropdown */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  padding: 5px;
+  filter: invert(1);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 0.7;
+} 

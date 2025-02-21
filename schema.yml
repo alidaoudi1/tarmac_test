@@ -1,0 +1,989 @@
+openapi: 3.0.3
+info:
+  title: AGOA API
+  version: 1.0.0
+paths:
+  /api/airlines/:
+    get:
+      operationId: api_airlines_list
+      description: List all airlines
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Airline'
+          description: ''
+    post:
+      operationId: api_airlines_create
+      description: Create a new airline
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AirlineRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AirlineRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AirlineRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Airline'
+          description: ''
+  /api/airlines/{id}/:
+    get:
+      operationId: api_airlines_retrieve
+      description: Retrieve a specific airline
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this airline.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Airline'
+          description: ''
+    put:
+      operationId: api_airlines_update
+      description: Update an airline
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this airline.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AirlineRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AirlineRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AirlineRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Airline'
+          description: ''
+    patch:
+      operationId: api_airlines_partial_update
+      description: |-
+        API endpoint for managing airlines.
+
+        Provides CRUD operations:
+        - GET /api/airlines/ : List all airlines
+        - POST /api/airlines/ : Create a new airline
+        - GET /api/airlines/{id}/ : Retrieve a specific airline
+        - PUT /api/airlines/{id}/ : Update an airline
+        - DELETE /api/airlines/{id}/ : Delete an airline
+
+        Required fields:
+        - name: Full name of the airline
+        - iata_code: 2-letter IATA code (unique)
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this airline.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedAirlineRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedAirlineRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedAirlineRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Airline'
+          description: ''
+    delete:
+      operationId: api_airlines_destroy
+      description: Delete an airline
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this airline.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/airports/:
+    get:
+      operationId: api_airports_list
+      description: List all airports
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Airport'
+          description: ''
+    post:
+      operationId: api_airports_create
+      description: Create a new airport
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AirportRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AirportRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AirportRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Airport'
+          description: ''
+  /api/airports/{id}/:
+    get:
+      operationId: api_airports_retrieve
+      description: Retrieve a specific airport
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this airport.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Airport'
+          description: ''
+    put:
+      operationId: api_airports_update
+      description: Update an airport
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this airport.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AirportRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AirportRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AirportRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Airport'
+          description: ''
+    patch:
+      operationId: api_airports_partial_update
+      description: |-
+        API endpoint for managing airports.
+
+        Provides CRUD operations:
+        - GET /api/airports/ : List all airports
+        - POST /api/airports/ : Create a new airport
+        - GET /api/airports/{id}/ : Retrieve a specific airport
+        - PUT /api/airports/{id}/ : Update an airport
+        - DELETE /api/airports/{id}/ : Delete an airport
+
+        Required fields:
+        - name: Full name of the airport
+        - iata_code: 3-letter IATA code (unique)
+        - city: City where the airport is located
+        - country: Country where the airport is located
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this airport.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedAirportRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedAirportRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedAirportRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Airport'
+          description: ''
+    delete:
+      operationId: api_airports_destroy
+      description: Delete an airport
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this airport.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/auth/login/:
+    post:
+      operationId: api_auth_login_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Login'
+          description: ''
+  /api/auth/register/:
+    post:
+      operationId: api_auth_register_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Register'
+          description: ''
+  /api/flights/:
+    get:
+      operationId: api_flights_list
+      description: List all flights
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Flight'
+          description: ''
+    post:
+      operationId: api_flights_create
+      description: Create a new flight
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FlightRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FlightRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Flight'
+          description: ''
+  /api/flights/{id}/:
+    get:
+      operationId: api_flights_retrieve
+      description: Retrieve a specific flight
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this flight.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Flight'
+          description: ''
+    put:
+      operationId: api_flights_update
+      description: Update a flight
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this flight.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlightRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FlightRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FlightRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Flight'
+          description: ''
+    patch:
+      operationId: api_flights_partial_update
+      description: |-
+        API endpoint for managing flights.
+
+        Provides CRUD operations:
+        - GET /api/flights/ : List all flights
+        - POST /api/flights/ : Create a new flight
+        - GET /api/flights/{id}/ : Retrieve a specific flight
+        - PUT /api/flights/{id}/ : Update a flight
+        - DELETE /api/flights/{id}/ : Delete a flight
+
+        Required fields:
+        - flight_number: Unique identifier for the flight
+        - airline: Reference to airline performing the flight
+        - departure_airport: Reference to departure airport
+        - arrival_airport: Reference to arrival airport
+        - scheduled_departure: Scheduled departure time
+        - scheduled_arrival: Scheduled arrival time
+
+        Optional fields:
+        - actual_departure: Actual departure time
+        - actual_arrival: Actual arrival time
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this flight.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedFlightRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedFlightRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedFlightRequest'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Flight'
+          description: ''
+    delete:
+      operationId: api_flights_destroy
+      description: Delete a flight
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this flight.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/turnarounds/:
+    get:
+      operationId: api_turnarounds_list
+      description: List all turnarounds
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Turnaround'
+          description: ''
+    post:
+      operationId: api_turnarounds_create
+      description: Create a new turnaround
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TurnaroundRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TurnaroundRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TurnaroundRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Turnaround'
+          description: ''
+  /api/turnarounds/{id}/:
+    get:
+      operationId: api_turnarounds_retrieve
+      description: Retrieve a specific turnaround
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this turnaround.
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Turnaround'
+          description: ''
+  /api/turnarounds/average_duration/:
+    get:
+      operationId: api_turnarounds_average_duration_retrieve
+      description: |-
+        Calculate average turnaround duration for a specific date.
+
+        Query parameters:
+        - date: Date in YYYY-MM-DD format
+
+        Returns:
+        - date: The requested date
+        - average_duration_minutes: Average duration in minutes
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Turnaround'
+          description: ''
+  /api/turnarounds/by_date_and_airport/:
+    get:
+      operationId: api_turnarounds_by_date_and_airport_retrieve
+      description: |-
+        Get turnarounds for a specific date and airport.
+
+        Query parameters:
+        - date: Date in YYYY-MM-DD format
+        - airport: IATA code of the airport
+
+        Returns:
+        - List of turnarounds matching the criteria
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Turnaround'
+          description: ''
+components:
+  schemas:
+    Airline:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        iata_code:
+          type: string
+          maxLength: 2
+      required:
+      - iata_code
+      - id
+      - name
+    AirlineRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        iata_code:
+          type: string
+          minLength: 1
+          maxLength: 2
+      required:
+      - iata_code
+      - name
+    Airport:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        iata_code:
+          type: string
+          maxLength: 3
+        city:
+          type: string
+          maxLength: 100
+        country:
+          type: string
+          maxLength: 100
+      required:
+      - city
+      - country
+      - iata_code
+      - id
+      - name
+    AirportRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        iata_code:
+          type: string
+          minLength: 1
+          maxLength: 3
+        city:
+          type: string
+          minLength: 1
+          maxLength: 100
+        country:
+          type: string
+          minLength: 1
+          maxLength: 100
+      required:
+      - city
+      - country
+      - iata_code
+      - name
+    Flight:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        flight_number:
+          type: string
+          maxLength: 10
+        scheduled_departure:
+          type: string
+          format: date-time
+        actual_departure:
+          type: string
+          format: date-time
+          nullable: true
+        scheduled_arrival:
+          type: string
+          format: date-time
+        actual_arrival:
+          type: string
+          format: date-time
+          nullable: true
+        airline:
+          type: integer
+        departure_airport:
+          type: integer
+        arrival_airport:
+          type: integer
+      required:
+      - airline
+      - arrival_airport
+      - departure_airport
+      - flight_number
+      - id
+      - scheduled_arrival
+      - scheduled_departure
+    FlightRequest:
+      type: object
+      properties:
+        flight_number:
+          type: string
+          minLength: 1
+          maxLength: 10
+        scheduled_departure:
+          type: string
+          format: date-time
+        actual_departure:
+          type: string
+          format: date-time
+          nullable: true
+        scheduled_arrival:
+          type: string
+          format: date-time
+        actual_arrival:
+          type: string
+          format: date-time
+          nullable: true
+        airline:
+          type: integer
+        departure_airport:
+          type: integer
+        arrival_airport:
+          type: integer
+      required:
+      - airline
+      - arrival_airport
+      - departure_airport
+      - flight_number
+      - scheduled_arrival
+      - scheduled_departure
+    Login:
+      type: object
+      properties:
+        username:
+          type: string
+      required:
+      - username
+    LoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          minLength: 1
+        password:
+          type: string
+          writeOnly: true
+          minLength: 1
+      required:
+      - password
+      - username
+    PatchedAirlineRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        iata_code:
+          type: string
+          minLength: 1
+          maxLength: 2
+    PatchedAirportRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        iata_code:
+          type: string
+          minLength: 1
+          maxLength: 3
+        city:
+          type: string
+          minLength: 1
+          maxLength: 100
+        country:
+          type: string
+          minLength: 1
+          maxLength: 100
+    PatchedFlightRequest:
+      type: object
+      properties:
+        flight_number:
+          type: string
+          minLength: 1
+          maxLength: 10
+        scheduled_departure:
+          type: string
+          format: date-time
+        actual_departure:
+          type: string
+          format: date-time
+          nullable: true
+        scheduled_arrival:
+          type: string
+          format: date-time
+        actual_arrival:
+          type: string
+          format: date-time
+          nullable: true
+        airline:
+          type: integer
+        departure_airport:
+          type: integer
+        arrival_airport:
+          type: integer
+    Register:
+      type: object
+      properties:
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+      required:
+      - email
+      - username
+    RegisterRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          minLength: 1
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          minLength: 1
+        password:
+          type: string
+          writeOnly: true
+          minLength: 8
+      required:
+      - email
+      - password
+      - username
+    Turnaround:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        scheduled_start:
+          type: string
+          format: date-time
+        actual_start:
+          type: string
+          format: date-time
+          nullable: true
+        scheduled_end:
+          type: string
+          format: date-time
+        actual_end:
+          type: string
+          format: date-time
+          nullable: true
+        arrival_flight:
+          type: integer
+        departure_flight:
+          type: integer
+        airport:
+          type: integer
+      required:
+      - airport
+      - arrival_flight
+      - departure_flight
+      - id
+      - scheduled_end
+      - scheduled_start
+    TurnaroundRequest:
+      type: object
+      properties:
+        scheduled_start:
+          type: string
+          format: date-time
+        actual_start:
+          type: string
+          format: date-time
+          nullable: true
+        scheduled_end:
+          type: string
+          format: date-time
+        actual_end:
+          type: string
+          format: date-time
+          nullable: true
+        arrival_flight:
+          type: integer
+        departure_flight:
+          type: integer
+        airport:
+          type: integer
+      required:
+      - airport
+      - arrival_flight
+      - departure_flight
+      - scheduled_end
+      - scheduled_start
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

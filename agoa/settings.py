@@ -43,9 +43,11 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "authentication",
     "agoa",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -149,3 +151,9 @@ SIMPLE_JWT = {
     "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
     "ACCESS_TOKEN_LIFETIME": timedelta(days=14),
 }
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # React default port
+]
+
+CORS_ALLOW_CREDENTIALS = True

@@ -27,9 +27,11 @@ class Airport(models.Model):
     )  # Ex: CDG, ORY
     city: models.CharField = models.CharField(max_length=100)
     country: models.CharField = models.CharField(max_length=100)
+    latitude: models.FloatField = models.FloatField()
+    longitude: models.FloatField = models.FloatField()
 
     def __str__(self) -> str:
-        return f"{self.name} ({self.iata_code})"
+        return f"{self.iata_code} - {self.name}"
 
 
 class Flight(models.Model):
