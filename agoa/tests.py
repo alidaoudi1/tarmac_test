@@ -20,15 +20,22 @@ class AgoaAPITests(APITestCase):
         # Create test airline
         self.airline = Airline.objects.create(name="Test Airline", iata_code="TA")
 
-        # Create test airports
+        # Create test airports with latitude and longitude
         self.airport_cdg = Airport.objects.create(
             name="Paris Charles de Gaulle",
             iata_code="CDG",
             city="Paris",
             country="France",
+            latitude=49.0097,
+            longitude=2.5479,
         )
         self.airport_jfk = Airport.objects.create(
-            name="John F. Kennedy", iata_code="JFK", city="New York", country="USA"
+            name="John F. Kennedy", 
+            iata_code="JFK", 
+            city="New York", 
+            country="USA",
+            latitude=40.6413,
+            longitude=-73.7781,
         )
 
         # Create test flight
